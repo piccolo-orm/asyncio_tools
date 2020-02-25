@@ -4,6 +4,9 @@ from functools import cached_property
 import typing as t
 
 
+__VERSION__ = "0.1.0"
+
+
 class CompoundException(Exception):
     """
     Is used to aggregate several exceptions into a single exception, with a
