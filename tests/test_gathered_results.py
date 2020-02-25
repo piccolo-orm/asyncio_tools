@@ -1,27 +1,40 @@
 import asyncio
 from unittest import TestCase
 
-from asyncio_tools import gather
+from asyncio_tools import gather, CompoundException, GatheredResults
 
 
 async def good():
-    return True
+    return "OK"
 
 
 async def bad():
-    raise Exception()
+    raise ValueError("Bad value")
 
 
 class TestGatheredResults(TestCase):
+    def test_exceptions(self):
+        response: GatheredResults = asyncio.run(gather(good(), bad(), good()))
+        self.assertTrue(ValueError in response.exception_types)
+        self.assertTrue(response.exception_count == 1)
 
-    async def contains(self):
-        results = await gather(
-            good(),
-            bad(),
-            good(),
+    def test_successes(self):
+        response: GatheredResults = asyncio.run(gather(good(), bad(), good()))
+        self.assertTrue(response.successes == ["OK", "OK"])
+        self.assertTrue(response.success_count == 2)
+
+    def test_compound_exception(self):
+        response: GatheredResults = asyncio.run(
+            gather(good(), bad(), good(), bad())
         )
 
-        self.assertTrue(Exception in results)
+        with self.assertRaises(CompoundException):
+            raise response.compound_exception()
 
-    def test_contains(self):
-        asyncio.run(self.contains())
+        exception = response.compound_exception()
+        self.assertTrue(ValueError in exception.exception_types)
+
+    def test_set(self):
+        results = GatheredResults([])
+        with self.assertRaises(ValueError):
+            results.results = None

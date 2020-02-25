@@ -26,7 +26,7 @@ async def main():
     )
 
     # Check if a particular exception was raised.
-    ValueError in response.exceptions
+    ValueError in response.exception_types
     # >>> True
 
     # To get all exceptions:
@@ -34,7 +34,7 @@ async def main():
     # >>> [ValueError()]
 
     # To get all instances of a particular exception:
-    response.exceptions.get_all(ValueError)
+    response.exceptions_of_type(ValueError)
     # >>> [ValueError()]
 
     # To get the number of exceptions:
@@ -56,11 +56,11 @@ async def main():
     try:
         # To combines all of the exceptions into a single one, which merges the
         # messages.
-        raise response.compound_exception
+        raise response.compound_exception()
     except CompoundException as compound_exception:
         print("Caught it")
 
-        if ValueError in compound_exception:
+        if ValueError in compound_exception.exception_types:
             print("Caught a ValueError")
 
 ```
