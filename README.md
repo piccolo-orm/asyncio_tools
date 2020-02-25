@@ -1,6 +1,6 @@
 # asyncio_tools
 
-Useful utilities for working with asyncio - currently in alpha.
+Useful utilities for working with asyncio.
 
 ## gather
 
