@@ -64,3 +64,8 @@ async def main():
             print("Caught a ValueError")
 
 ```
+
+Read some background on why `gather` is useful:
+
+- https://www.piccolo-orm.com/blog/exception-handling-in-asyncio/
+- https://www.piccolo-orm.com/blog/asyncio-gather/
