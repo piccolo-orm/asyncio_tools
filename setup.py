@@ -25,7 +25,6 @@ setup(
     python_requires=">=3.8.0",
     url="https://github.com/piccolo-orm/asyncio_tools",
     py_modules=["asyncio_tools"],
-    package_data={"piccolo": ["py.typed"]},
     data_files=[("", ["py.typed"])],
     install_requires=[],
     license="MIT",
