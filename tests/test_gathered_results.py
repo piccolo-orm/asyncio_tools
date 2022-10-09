@@ -36,5 +36,12 @@ class TestGatheredResults(TestCase):
 
     def test_set(self):
         results = GatheredResults([])
-        with self.assertRaises(ValueError):
+        with self.assertRaises(AttributeError):
             results.results = None
+
+    def test_set_2(self):
+        results = asyncio.run(gather(good(), bad()))
+        with self.assertRaises(AttributeError):
+            results.results = None
+        self.assertEqual(len(results.all), 2)
+        self.assertEqual(len(results.results), 2)
