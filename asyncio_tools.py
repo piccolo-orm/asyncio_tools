@@ -4,7 +4,7 @@ from functools import cached_property
 import typing as t
 
 
-__VERSION__ = "0.1.1"
+__VERSION__ = "1.0.0"
 
 
 class CompoundException(Exception):
