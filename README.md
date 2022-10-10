@@ -2,6 +2,12 @@
 
 Useful utilities for working with asyncio.
 
+## Installation
+
+```
+pip install asyncio-tools
+```
+
 ## gather
 
 Provides a convenient wrapper around `asyncio.gather`.
