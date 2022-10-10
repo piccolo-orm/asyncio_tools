@@ -45,30 +45,23 @@ class CompoundException(Exception):
 class GatheredResults:
 
     # __dict__ is required for cached_property
-    __slots__ = ("results", "__dict__")
+    __slots__ = ("__results", "__dict__")
 
     def __init__(self, results: t.List[t.Any]):
-        self.results = results
+        self.__results = results
 
     ###########################################################################
 
-    def __setattr__(self, key, value):
-        """
-        Since we use cached_properties for most of the lookups, we don't want
-        the underlying results to be changed. There should be no reason for a
-        user to want to change the results, but just to be sure we raise a
-        ValueError.
-        """
-        if key == "results":
-            raise ValueError("results is immutable")
-        super().__setattr__(key, value)
+    @property
+    def results(self):
+        return self.__results
 
     @property
     def all(self) -> t.List[t.Any]:
         """
         Just a proxy.
         """
-        return self.results
+        return self.__results
 
     ###########################################################################
 
